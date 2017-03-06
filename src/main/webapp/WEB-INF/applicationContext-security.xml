@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	<http auto-config='true'>
+		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRATOR" />
+		<intercept-url pattern="/pessoa/**" access="ROLE_CLIENTE" />
+		
+		<form-login login-page="/publico/login.xhtml"
+			always-use-default-target="true" 
+			authentication-success-handler-ref="authenticationSuccessHandler"
+			authentication-failure-url="/publico/login.xhtml?login_error=1" />
+		<logout logout-success-url="/publico/index.xhtml" invalidate-session="true"/>
+		<remember-me />
+	</http>
+	<beans:bean id="authenticationSuccessHandler" class="negocio.ManipuladorAutenticacao" />
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="hibernateDataSource"
+				users-by-username-query="SELECT pes_nome, pes_senha, 'true' as enable
+															 FROM pessoa
+															 WHERE pes_nome = ? "
+				authorities-by-username-query="SELECT pes_nome, pes_permissao
+														FROM pessoa
+														WHERE pes_nome = ? " />
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>

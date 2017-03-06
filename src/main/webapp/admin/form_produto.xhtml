@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="principal">
+			<div align="center">
+				<br />
+				<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="msg" showDetail="true" />
+			<p:panel title="produtos" header="Formulario de Produtos">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="nome" value="Nome" style="font-weight: bold;" />
+					<p:inputText id="nome" value="#{produtoCtrl.produto.pro_nome}" />
+
+					<p:outputLabel for="pre" value="Preço" style="font-weight: bold;" />
+					<p:inputText id="pre" value="#{produtoCtrl.produto.pro_preco}" />
+
+
+					<p:outputLabel for="upload" value="Foto" style="font-weight: bold;" />
+					<p:fileUpload id="upload" mode="advanced"
+						fileUploadListener="#{produtoCtrl.upload}" update=":form:msg" />
+
+				</p:panelGrid>
+				<p:commandButton value="Salvar" action="#{produtoCtrl.actionGravar}"
+					update=":form:msg" />
+
+			</p:panel>
+		</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

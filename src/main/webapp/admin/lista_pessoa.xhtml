@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="principal">
+			<div align="center">
+				<div class="grid">
+					<h:form>
+						<p:dataTable value="#{pessoaCtrl.listagem}" var="objPessoa"
+							reflow="true" rows="20" paginator="true" style="font-size:11px">
+							<f:facet name="header">
+								<p:outputLabel value="Pessoas Cadastradas" />
+							</f:facet>
+
+							<p:column>
+								<f:facet name="header">
+									<p:outputLabel value="Nome" />
+								</f:facet>
+								<p:outputLabel value="#{objPessoa.pes_nome}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<p:outputLabel value="CPF" />
+								</f:facet>
+								<p:outputLabel value="#{objPessoa.pes_cpf}" maxlength="14"
+									onkeypress="formatarData('###.###.###-##', this);">
+								</p:outputLabel>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<p:outputLabel value="RG" />
+								</f:facet>
+								<p:outputLabel value="#{objPessoa.pes_rg}" maxlength="11"
+									onkeypress="formatarData('##.###.###-#', this);" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<p:outputLabel value="Data de Nascimento" />
+								</f:facet>
+								<p:outputLabel value="#{objPessoa.pes_data_nasc}" maxlength="10"
+									onkeypress="formatarData('##/##/####', this);">
+									<f:convertDateTime dateStyle="medium" />
+								</p:outputLabel>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<p:outputLabel value="Cidade" />
+								</f:facet>
+								<p:outputLabel value="#{objPessoa.pes_cidade}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<p:outputLabel value="UF" />
+								</f:facet>
+								<p:outputLabel value="#{objPessoa.pes_uf}" />
+							</p:column>
+
+							<p:column>
+								<h:commandLink value="Editar" action="#{pessoaCtrl.actionAlterar(objPessoa)}">
+									<f:setPropertyActionListener value="#{objPessoa}"
+										target="#{pessoaCtrl.pessoa}" />
+								</h:commandLink>
+							</p:column>
+							<p:column>
+								<h:commandLink value="Excluir"
+									action="#{pessoaCtrl.actionExcluir}">
+									<f:setPropertyActionListener value="#{objPessoa}"
+										target="#{pessoaCtrl.pessoa}" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

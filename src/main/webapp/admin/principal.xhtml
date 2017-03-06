@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<title>Área Aministrativa</title>
+</head>
+<body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="principal">
+			<h1>
+				<h:outputText value="Área - Administrativa" />
+			</h1>
+			<h:form>
+				<lu>
+				<li><h:commandLink value=" Listar Produto"
+						action="/admin/lista_produto?faces-redirect=true" /></li>
+				<li><h:commandLink value="Listar Pessoa"
+						action="/admin/lista_pessoa?faces-redirect=true" /></li>
+				<li><h:commandLink value="Listar Forma de Pagamento"
+						action="/admin/lista_formaPgto?faces-redirect=true" /></li>
+				<li><h:outputLink
+						onclick="document.location='#{request.contextPath}/j_spring_security_logout'">
+					Logout
+				</h:outputLink></li>
+				</lu>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

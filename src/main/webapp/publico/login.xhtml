@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<head>
+<title>Login</title>
+<h:outputStylesheet library="css" name="styleIndex.css" />
+</head>
+<h:body
+	style="background-image:
+		url('#{request.contextPath}/resources/imagens/loja-virtual.png') !important;">
+
+	<div class="ui-grid ui-grid-responsive" align="center">
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel style="aling: center">Caso não seja cadastrado </p:outputLabel>
+				<h:commandLink action="form_pessoa.xhtml">Clique aqui</h:commandLink>
+			</h:panelGrid>
+		</h:form>
+
+		<div align="center" >
+			<h:panelGroup rendered="#{!empty param.login_error}">
+		Erro ao efetuar o login.<br />
+		Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+</h:panelGroup>
+
+			<form id="login" method="post" style="margin-top: 200px;"
+				action="#{request.contextPath}/j_spring_security_check">
+				<table style=" border: solid 1px activeborder; background-color: transparent; padding: 50px">
+					<tr>
+						<td>Login</td>
+						<td><input type="text" name="j_username" /></td>
+					</tr>
+					<tr>
+						<td>Senha</td>
+						<td><input type="password" name="j_password" /></td>
+					</tr>
+					<tr>
+						<td align="right"><input type="checkbox"
+							name="_spring_security_remember_me" /></td>
+						<td>Logar Automaticamente</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="Logar" /></td>
+					</tr>
+				</table>
+				<script>
+					document.getElementById("login").j_username.value = "#{SPRING_SECURITY_remember_me}";
+				</script>
+			</form>
+		</div>
+	</div>
+</h:body>
+</html>

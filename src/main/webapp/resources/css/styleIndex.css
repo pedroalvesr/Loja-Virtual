@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-image:
+		url('#{request.contextPath}/resources/imagens/loja-virtual.png') !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-repeat: no-repeat center center fixed;
+}

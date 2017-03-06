@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	
+<ui:composition template="/template/layout_cliente.xhtml">
+	<ui:define name="principal">
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+				<p:panel>
+					<p:wizard flowListener="#{carrinhoCtrl.onFlowProcess}"
+						nextLabel="Próximo" backLabel="Voltar">
+
+						<p:tab id="produtos" title="Produtos">
+							<p:panel header="Esses são seus produtos">
+								<h:panelGrid columns="3" columnClasses="label, value"
+									id="painelProdutos">
+
+									<p:dataTable value="#{carrinhoCtrl.escolhas}" var="pro">
+										<p:column>
+											<f:facet name="header">
+												<h:outputLabel value="ID" />
+											</f:facet>
+											<h:outputText value="#{pro.prod_id}" />
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputLabel value="Produto" />
+											</f:facet>
+											<h:outputText value="#{pro.pro_nome}" />
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputLabel value="Preço" />
+											</f:facet>
+											<h:outputText value="#{pro.pro_preco}" />
+										</p:column>
+
+										<p:column>
+											<f:facet name="header">
+												<h:outputLabel value="Quantidade" />
+											</f:facet>
+											<p:spinner value="#{carrinhoCtrl.qtd}" size="3" min="1" />
+										</p:column>
+
+
+									</p:dataTable>
+
+									<p:dataTable value="#{carrinhoCtrl}" var="pro">
+										<p:column>
+											<f:facet name="header">
+												<h:outputLabel value="Valor Total" />
+											</f:facet>
+											<h:outputText value="#{carrinhoCtrl.subTotal}" />
+										</p:column>
+									</p:dataTable>
+
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+
+						<p:tab id="pessoal" title="Pessoal">
+							<p:panel header="Detalhes Pessoais">
+								<h:panelGrid columns="2" columnClasses="label, value"
+									id="painelPessoal">
+
+									
+									<p:outputLabel value="Comprador: " />
+									<p:outputLabel value="#{carrinhoCtrl.pessoa.pes_nome}" />
+									<p:outputLabel value="Cidade: " />
+									<p:outputLabel value="#{carrinhoCtrl.pessoa.pes_cidade}" />
+									<p:outputLabel value="Estado: " />
+									<p:outputLabel value="#{carrinhoCtrl.pessoa.pes_uf}" />
+									<p:outputLabel value="Rua: " />
+									<p:outputLabel value="#{carrinhoCtrl.pessoa.pes_rua}" />
+									<p:outputLabel value="CEP: " />
+									<p:outputLabel value="#{carrinhoCtrl.pessoa.pes_cep}" />
+
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+
+
+						<p:tab id="formPgto" title="Pagamento">
+							<p:panel header="Escolha a forma de Pagamento">
+								<h:panelGrid columns="3" columnClasses="label, value"
+									id="painelPgto">
+
+									<p:dataTable id="radioDT" var="pgto"
+										value="#{carrinhoCtrl.pgtos}" selection="#{carrinhoCtrl.pgto}"
+										rowKey="#{pgto.id}">
+
+										<p:column selectionMode="single"
+											style="width:16px;text-align:center" />
+										<p:column headerText="Id">
+											<h:outputText value="#{pgto.id}" />
+										</p:column>
+										<p:column headerText="Descrição">
+											<h:outputText value="#{pgto.descricao}" />
+										</p:column>
+
+										<f:facet name="footer">
+											<p:commandButton value="Finalizar Compra"
+												action="#{carrinhoCtrl.Compra}" update="msgs" ajax="false" />
+											<p:commandButton value="Pagina Inicial"
+												action="#{carrinhoCtrl.voltar}" />
+										</f:facet>
+									</p:dataTable>
+
+
+
+
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+					</p:wizard>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</ui:composition>

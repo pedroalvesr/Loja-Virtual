@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<h:outputScript library="js" name="formatar.js" />
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout_cliente.xhtml">
+		<ui:define name="principal">
+			<div align="center">
+				<br />
+				<p:outputLabel value="Cadastro de Pessoa" />
+				<br />
+				<h:form>
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Nome: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_nome}" />
+						<p:outputLabel value="CPF: " />
+						<p:inputMask mask="999.999.999-99"  value="#{pessoaCtrl.pessoa.pes_cpf}"  />
+						<p:outputLabel value="Tipo de acesso: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_permissao}" />
+						<p:outputLabel value="RG: " />
+						<p:inputMask mask="99.999.999-99"  value="#{pessoaCtrl.pessoa.pes_rg}" maxlength="13"/>
+						<p:outputLabel value="Data de Nascimento: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_data_nasc}"
+							onfocus="limpaCampo(this);" maxlength="10"
+							onkeypress="formatarData('##/##/####', this);">
+							<f:convertDateTime dateStyle="medium" />
+						</p:inputText>
+						<p:outputLabel value="Rua: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_rua}" />
+						<p:outputLabel value="Bairro: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_bairro}" />
+						<p:outputLabel value="Cidade: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_cidade}" />
+						<p:outputLabel value="UF: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_uf}" />
+						<p:outputLabel value="CEP: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_cep}" />
+						<p:outputLabel value="Senha: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_senha}" />
+						<p:outputLabel value="E-mail: " />
+						<p:inputText value="#{pessoaCtrl.pessoa.pes_email}" />
+					</h:panelGrid>
+
+
+					<h:dataTable value="#{pessoaCtrl.pessoa.fones}" var="fone"
+					rules="rows" id="table">
+					<f:facet name="header">
+						<p:commandButton value="Adicionar Telefones"
+							action="#{pessoaCtrl.actionInserirFone}" >
+						</p:commandButton>
+					</f:facet>
+
+					<p:column>
+						<f:facet name="header">
+							<p:outputLabel value="Numero" />
+						</f:facet>
+						<p:inputMask mask="(99) 99999-9999" value="#{fone.numero}" size="20" maxlength="20" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<p:outputLabel value="Descrição" />
+						</f:facet>
+						<p:inputText value="#{fone.descricao}" size="30" maxlength="30" />
+					</p:column>
+						<p:column>
+						<p:commandLink value="Excluir"
+							action="#{pessoaCtrl.actionExcluirFone(fone)}" />
+					</p:column>
+					</h:dataTable>
+					<p:commandButton value="Lista"
+						action="lista_pessoa?faces-redirect=true" />
+					<p:commandButton value="Salvar" action="#{pessoaCtrl.actionGravar}" />
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,44 @@
+#container {
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	
+	
+}
+#index {
+	
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	
+}
+#cabecalho{
+	height: 100%;
+	widht: 100%;
+	text-align: center;
+	font-size: 30px;
+	font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif;
+	
+	
+}
+
+#menu{
+	font-family: serif;
+	font-size: 18px;
+	
+}
+
+#principal {
+	width: 100%;
+	height: 100%;
+	border: 10px;
+	
+	
+}
+
+
+.grid{
+	width: 100%;
+	font-size: 12px;
+	
+}

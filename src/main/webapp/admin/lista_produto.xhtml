@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="principal">
+			<div align="center">
+				<div class="grid">
+					<h:form>
+						<p:dataTable value="#{produtoCtrl.listagem}" var="objProduto"
+							reflow="true" rows="5" paginator="true">
+							<f:facet name="header">
+								<h:outputLabel value="Produtos Cadastrados" />
+							</f:facet>
+							<p:column headerText="Código">
+								<f:facet name="header">
+									<h:outputLabel value="Código" />
+								</f:facet>
+								<h:outputLabel value="#{objProduto.prod_id}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputLabel value="Nome do Produto" />
+								</f:facet>
+								<h:outputLabel value="#{objProduto.pro_nome}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputLabel value="Valor Produto " />
+								</f:facet>
+								<h:outputLabel value="#{objProduto.pro_preco}" />
+							</p:column>
+							<p:column>
+								<h:commandLink value="Editar" action="form_produto">
+									<f:setPropertyActionListener value="#{objProduto}"
+										target="#{produtoCtrl.produto}" />
+								</h:commandLink>
+							</p:column>
+							<p:column>
+								<h:commandLink value="Excluir"
+									action="#{produtoCtrl.actionExcluir}">
+									<f:setPropertyActionListener value="#{objProduto}"
+										target="#{produtoCtrl.produto}" />
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

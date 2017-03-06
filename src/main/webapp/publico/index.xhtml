@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<div id="index">
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			<p:menubar>
+				<p:menuitem value="Início" icon="fa fa-home"
+					action="#{carrinhoCtrl.voltar}" />
+
+				<p:menuitem value="Minha Conta" icon="fa fa-user"
+					action="#{pessoaCtrl.actionCliente()}" />
+
+				<p:menuitem value="Meu Carrinho " icon="fa fa-cart-plus"
+					style="float:right" action="#{carrinhoCtrl.actionNovoPedido}" />
+
+				<p:menuitem value="Sair" icon="fa fa-close"
+					onclick="document.location='#{request.contextPath}/j_spring_security_logout'" />
+			</p:menubar>
+
+			<!-- LISTANDO OS PRODUTOS EM CARROCEL -->
+
+			<p:carousel value="#{carrinhoCtrl.listagem}"
+				headerText="Super Ofertas" var="pro" itemStyle="text-align:left"
+				responsive="true">
+				<p:panelGrid columns="2"
+					style="width:100%; margin:10px 0px; font-size: 12px"
+					styleClass="ui-panelgrid-blank">
+					<f:facet name="header">
+						<p:graphicImage value="/resources/imagens/#{pro.foto}"
+							style="width:300px; height:300px; align:right " />
+					</f:facet>
+
+					<h:outputText value="Id:" style="font-weight: bold;" />
+					<h:outputText value="(#{pro.prod_id})" />
+
+					<h:outputLabel value="Nome" style="font-weight: bold;" />
+					<h:outputText value="#{pro.pro_nome}" />
+
+					<h:outputLabel value="Preço" style="font-weight: bold;" />
+					<h:outputText value="#{pro.pro_preco}" />
+
+					<p:commandButton action="#{carrinhoCtrl.comprar(pro)}"
+						value="comprar" update=":form:msgs" />
+				</p:panelGrid>
+			</p:carousel>
+			
+			<!-- LISTANDO OS PRODUTOS EM GRID -->
+			
+			<p:panel>
+				<p:dataGrid value="#{carrinhoCtrl.listagem}" var="pro" columns="3"
+					layout="grid" rows="9" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="9,12,16"
+					style="margin:0 auto; font-size: 13px">
+
+					<f:facet name="header">
+						<p:commandButton action="#{carrinhoCtrl.actionNovoPedido}"
+							value="finalizar compra" />
+					</f:facet>
+					<f:facet name="footer">
+						<p:commandButton action="#{carrinhoCtrl.actionNovoPedido}"
+							value="finalizar compra" />
+					</f:facet>
+
+					<h:panelGrid ccolumns="2"
+						style="width:100%; margin:10px 0px; font-size: 12px"
+						styleClass="ui-panelgrid-blank">
+
+
+						<p:outputPanel>
+							<p:graphicImage value="/resources/imagens/#{pro.foto}"
+								style="width:250px; height:250px; align:right " />
+							<h:panelGrid columns="2" cellpadding="5">
+
+
+								<h:outputText value="Id:" style="font-weight: bold;" />
+								<h:outputText value="#{pro.prod_id}" />
+
+								<h:outputLabel value="Nome" style="font-weight: bold;" />
+								<h:outputText value="#{pro.pro_nome}" />
+
+								<h:outputLabel value="Preço" style="font-weight: bold;" />
+								<h:outputText value="#{pro.pro_preco}" />
+
+								<p:commandButton action="#{carrinhoCtrl.comprar(pro)}"
+									value="comprar" update=":form:msgs" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:dataGrid>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>
